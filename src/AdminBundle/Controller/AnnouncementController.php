@@ -4,7 +4,7 @@ namespace AdminBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class DefaultController extends Controller {
+class AnnouncementController extends Controller {
 
     
     public function indexAction() {
@@ -12,5 +12,6 @@ class DefaultController extends Controller {
         $entities = $em->getRepository('AdminBundle:Announcement')->findAll();
 
         return $this->render('AdminBundle:Default:index.html.twig', array('entities' => $entities));
-    } 
+    }
+
 }

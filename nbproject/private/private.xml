@@ -3,14 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/var/www/html/OWN/Sonata/src/AdminBundle/Resources/views/public/datatable.css</file>
-            <file>file:/var/www/html/OWN/Sonata/src/AdminBundle/Resources/views/Default/index.html.twig</file>
-            <file>file:/var/www/html/OWN/Sonata/src/AdminBundle/Admin/BlogPostAdmin.php</file>
-            <file>file:/var/www/html/OWN/Sonata/web/bundles/sonataadmin/css/layout.css</file>
-            <file>file:/var/www/html/OWN/Sonata/web/bundles/sonataadmin/css/styles.css</file>
-            <file>file:/var/www/html/OWN/Sonata/web/bundles/sonataadmin/css/tree.css</file>
-            <file>file:/var/www/html/OWN/Sonata/src/AdminBundle/Admin/CategoryAdmin.php</file>
-            <file>file:/var/www/html/OWN/Sonata/web/bundles/sonataadmin/css/colors.css</file>
+            <file>file:/var/www/html/OWN/Sonata/src/AdminBundle/Repository/AnnouncementRepository.php</file>
+            <file>file:/var/www/html/OWN/Sonata/src/AdminBundle/Entity/Announcement.php</file>
+            <file>file:/var/www/html/OWN/Sonata/app/config/security.yml</file>
+            <file>file:/var/www/html/OWN/Sonata/src/AdminBundle/Resources/config/services.yml</file>
+            <file>file:/var/www/html/OWN/Sonata/src/AdminBundle/Admin/AnnouncementAdmin.php</file>
+            <file>file:/var/www/html/OWN/Sonata/src/AdminBundle/Resources/config/routing.yml</file>
         </group>
     </open-files>
 </project-private>

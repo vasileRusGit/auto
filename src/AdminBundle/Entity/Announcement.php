@@ -2,6 +2,7 @@
 
 namespace AdminBundle\Entity;
 
+use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -31,9 +32,9 @@ class Announcement {
     /**
      * @var string
      *
-     * @ORM\Column(name="car_mark", type="string", nullable=true)
+     * @ORM\Column(name="car_maker", type="string", nullable=true)
      */
-    private $car_mark;
+    private $car_maker;
 
     /**
      *
@@ -49,10 +50,44 @@ class Announcement {
 
     /**
      *
+     * @ORM\Column(name="stock", type="integer")
+     */
+    private $stock;
+
+    /**
+     *
      * @ORM\Column(name="description", type="string", length=255)
      */
     private $description;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="imageName", type="string", length=255, nullable=true)
+     */
+    protected $imageName;
+
+    /**
+     * @ORM\Column(type="datetime", name="created")
+     */
+    protected $created;
+
+    /**
+     * User class constructor
+     */
+    public function __construct() {
+        $this->created = new \DateTime();
+    }
+    
+    function getCreated() {
+        return $this->created;
+    }
+
+    function setCreated($created) {
+        $this->created = $created;
+    }
+
+    
     /**
      * Get id
      *
@@ -70,12 +105,12 @@ class Announcement {
         $this->product_name = $product_name;
     }
 
-    function getCarMark() {
-        return $this->car_mark;
+    function getCarMaker() {
+        return $this->car_maker;
     }
 
-    function setCarMark($car_mark) {
-        $this->car_mark = $car_mark;
+    function setCarMaker($car_maker) {
+        $this->car_mark = $car_maker;
     }
 
     function getCarModel() {
@@ -102,14 +137,15 @@ class Announcement {
         $this->description = $description;
     }
 
-// IMAGE UPLOAD
+    function getStock() {
+        return $this->stock;
+    }
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="imageName", type="string", length=255, nullable=true)
-     */
-    protected $imageName;
+    function setStock($stock) {
+        $this->stock = $stock;
+    }
+
+// IMAGE UPLOAD
     protected $file;
 
     function getImageName() {

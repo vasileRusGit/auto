@@ -1,16 +1,13 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-    {% block stylesheets %}{% endblock %}
-    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-</head>
+{% extends 'base.html.twig' %}
+
+
+{% block styleshets %}
+    <link rel="stylesheet" href="{{ asset('bundles/admin/css/header.css') }}"/>
+{% endblock %}
 
 
 {% block header %}
-{#    <header id="header" headroom role="banner" tolerance="5" offset="700" class="navbar navbar-fixed-top navbar--white"
-            xmlns="http://www.w3.org/1999/html">
+    <header id="header" headroom role="banner" tolerance="5" offset="700" class="navbar navbar-fixed-top navbar--white" xmlns="http://www.w3.org/1999/html">
         <nav role="navigation">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle header-nav__button" data-toggle="collapse"
@@ -44,12 +41,5 @@
                 </ul>
             </div>
         </nav>
-    </header>#}
+    </header>
 {% endblock %}
-
-
-<body>
-{% block body %}{% endblock %}
-{% block javascripts %}{% endblock %}
-</body>
-</html>
