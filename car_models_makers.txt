@@ -1,3 +1,15 @@
+    $('select').change(function () {
+        // get the id of the select dropdown
+        var carMakerId = document.getElementsByTagName('select')[0].id;
+        var car = document.getElementById(carMakerId).value;
+
+        if (car === 'Bentley') {
+            console.log('enter');
+        }
+    });
+
+
+
 --
 -- Table structure for table `make`
 --
@@ -104,7 +116,7 @@ CREATE TABLE IF NOT EXISTS `model` (
 -- Dumping data for table `model`
 --
 
-INSERT INTO `model` (`id`, `make_id`, `code`, `title`) VALUES
+INSERT INTO `car_models` (`id`, `make_id`, `code`, `title`) VALUES
 (1, 1, 'CL_MODELS', 'CL Models (4)'),
 (2, 1, '2.2CL', ' - 2.2CL'),
 (3, 1, '2.3CL', ' - 2.3CL'),
