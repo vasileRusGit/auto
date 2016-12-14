@@ -32,7 +32,7 @@ class Announcement {
     /**
      * @var string
      *
-     * @ORM\Column(name="car_maker", type="string", nullable=true)
+     * @ORM\Column(name="car_maker", type="string", nullable=false)
      */
     private $car_maker;
 
@@ -110,7 +110,7 @@ class Announcement {
     }
 
     function setCarMaker($car_maker) {
-        $this->car_mark = $car_maker;
+        $this->car_maker = $car_maker;
     }
 
     function getCarModel() {

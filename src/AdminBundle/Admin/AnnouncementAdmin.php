@@ -13,27 +13,39 @@ class AnnouncementAdmin extends AbstractAdmin {
         // for loop years
         for ($i = 2016; $i >= 1970; $i--) {
             $time = new \DateTime('now');
-            $years[$i] = (string) $i;
+            $years[$i] = $i;
         }
 
-//        // query after the car makers
-//        $em = $this->modelManager->getEntityManager('AdminBundle\Entity\CarMakers');
-//
-//        $qb = $em->createQueryBuilder();
-//
-//        $qb = $qb->add('select', 'c')
-//                ->add('from', 'AdminBundle\Entity\CarMakers c');
-//
-//        $query = $qb->getQuery();
-//        $arrayType = $query->getArrayResult();
-//        $array = array_column($arrayType, 'title');
+        // query after the car makers
+        $emMakers = $this->modelManager->getEntityManager('AdminBundle\Entity\CarMakers');
+        $qbMakers = $emMakers->createQueryBuilder();
+        $qbMakers = $qbMakers->add('select', 'c')
+                ->add('from', 'AdminBundle\Entity\CarMakers c');
+
+        $queryMakers = $qbMakers->getQuery();
+        $arrayTypeMakers = $queryMakers->getArrayResult();
+        $arrayMakers = array_column($arrayTypeMakers, 'title');
+        $arrayMakers1 = array_column($arrayTypeMakers, 'id');
+        $resultMakers = array_combine($arrayMakers, $arrayMakers);
+        
+        // query after the car models depends on car makers
+        $emModels = $this->modelManager->getEntityManager('AdminBundle\Entity\CarModels');
+        $qbModels = $emModels->createQueryBuilder();
+        $qbModels = $qbModels->add('select', 'c')
+                ->add('from', 'AdminBundle\Entity\CarModels c');
+
+        $queryModels = $qbModels->getQuery();
+        $arrayTypeModels = $queryModels->getArrayResult();
+        $arrayModelsTitle = array_column($arrayTypeModels, 'title');
+//        var_dump($arrayModelsMakerId);die;
 
         $formMapper->add('product_name', 'text')
                 ->add('car_maker', 'choice', array(
-//                    'choices_as_values' => true,
-                    'choices' => array('audi'=>'audi'),
-                    'required' => false))
-                ->add('car_model', 'text')
+                    'choices' => $resultMakers))
+                ->add('car_model', 'choice',array(
+                    'choices' => $arrayModelsTitle,
+                    'required' => false,
+                    'attr'=>array('id'=>'carMaker')))
                 ->add('car_year', 'choice', array(
                     'choices' => $years))
                 ->add('stock', 'integer', array('required' => true))

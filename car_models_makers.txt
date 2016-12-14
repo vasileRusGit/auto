@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS `make` (
 -- Dumping data for table `make`
 --
 
-INSERT INTO `make` (`id`, `code`, `title`) VALUES
+INSERT INTO `car_makers` (`id`, `code`, `title`) VALUES
 (1, 'ACURA', 'Acura'),
 (2, 'ALFA', 'Alfa Romeo'),
 (3, 'AMC', 'AMC'),
