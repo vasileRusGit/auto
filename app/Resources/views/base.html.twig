@@ -9,47 +9,49 @@
 
 
 {% block header %}
-{#    <header id="header" headroom role="banner" tolerance="5" offset="700" class="navbar navbar-fixed-top navbar--white"
-            xmlns="http://www.w3.org/1999/html">
-        <nav role="navigation">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle header-nav__button" data-toggle="collapse"
-                        data-target=".navbar-main">
-                    <span class="icon-bar header-nav__button-line"></span>
-                    <span class="icon-bar header-nav__button-line"></span>
-                    <span class="icon-bar header-nav__button-line"></span>
-                </button>
-                <div class="header-nav__logo">
-                    <a class="header__logo" href="/">Coffee</a>
+    {#    <header id="header" headroom role="banner" tolerance="5" offset="700" class="navbar navbar-fixed-top navbar--white"
+                xmlns="http://www.w3.org/1999/html">
+            <nav role="navigation">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle header-nav__button" data-toggle="collapse"
+                            data-target=".navbar-main">
+                        <span class="icon-bar header-nav__button-line"></span>
+                        <span class="icon-bar header-nav__button-line"></span>
+                        <span class="icon-bar header-nav__button-line"></span>
+                    </button>
+                    <div class="header-nav__logo">
+                        <a class="header__logo" href="/">Coffee</a>
+                    </div>
                 </div>
-            </div>
-
-            <div class="collapse navbar-collapse navbar-main navbar-right">
-                <ul class="nav navbar-nav header-nav__navigation">
-                    <li class="header-nav__navigation-item">
-                        <a href="/" class="header-nav__navigation-link">
-                            Home
-                        </a>
-                    </li>
-                    <li class="header-nav__navigation-item">
-                        <a href="../Coffee.php" class="header-nav__navigation-link ">
-                            Coffee
-                        </a>
-                    </li>
-                    <li class="header-nav__navigation-item">
-                        <a href="#" class="header-nav__navigation-link ">
-                            Shop
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    </header>#}
+    
+                <div class="collapse navbar-collapse navbar-main navbar-right">
+                    <ul class="nav navbar-nav header-nav__navigation">
+                        <li class="header-nav__navigation-item">
+                            <a href="/" class="header-nav__navigation-link">
+                                Home
+                            </a>
+                        </li>
+                        <li class="header-nav__navigation-item">
+                            <a href="../Coffee.php" class="header-nav__navigation-link ">
+                                Coffee
+                            </a>
+                        </li>
+                        <li class="header-nav__navigation-item">
+                            <a href="#" class="header-nav__navigation-link ">
+                                Shop
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>#}
 {% endblock %}
 
 
 <body>
 {% block body %}{% endblock %}
-{% block javascripts %}{% endblock %}
+{% block javascripts %}
+    <link rel="stylesheet" href="{{ asset('bundles/admin/js/filter.js') }}"/>
+{% endblock %}
 </body>
 </html>

@@ -27,25 +27,26 @@ class AnnouncementAdmin extends AbstractAdmin {
         $arrayMakers = array_column($arrayTypeMakers, 'title');
         $arrayMakers1 = array_column($arrayTypeMakers, 'id');
         $resultMakers = array_combine($arrayMakers, $arrayMakers);
-        
-        // query after the car models depends on car makers
-        $emModels = $this->modelManager->getEntityManager('AdminBundle\Entity\CarModels');
-        $qbModels = $emModels->createQueryBuilder();
-        $qbModels = $qbModels->add('select', 'c')
-                ->add('from', 'AdminBundle\Entity\CarModels c');
 
-        $queryModels = $qbModels->getQuery();
-        $arrayTypeModels = $queryModels->getArrayResult();
-        $arrayModelsTitle = array_column($arrayTypeModels, 'title');
-//        var_dump($arrayModelsMakerId);die;
+//        // query after the car models depends on car makers
+//        $emModels = $this->modelManager->getEntityManager('AdminBundle\Entity\CarModels');
+//        $qbModels = $emModels->createQueryBuilder();
+//        $qbModels = $qbModels->add('select', 'c')
+//                ->add('from', 'AdminBundle\Entity\CarModels c');
+//
+//        $queryModels = $qbModels->getQuery();
+//        $arrayTypeModels = $queryModels->getArrayResult();
+//        $arrayModelsTitle = array_column($arrayTypeModels, 'title');
 
         $formMapper->add('product_name', 'text')
                 ->add('car_maker', 'choice', array(
-                    'choices' => $resultMakers))
-                ->add('car_model', 'choice',array(
-                    'choices' => $arrayModelsTitle,
-                    'required' => false,
-                    'attr'=>array('id'=>'carMaker')))
+                    'choices' => $resultMakers,
+                    'attr' => array('class' => 'carMaker')))
+                ->add('car_model', 'text'
+//                        , array(
+//                    'choices' => $arrayModelsTitle,
+//                    'required' => false,)
+                    )
                 ->add('car_year', 'choice', array(
                     'choices' => $years))
                 ->add('stock', 'integer', array('required' => true))

@@ -3,12 +3,17 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/var/www/html/OWN/Sonata/src/AdminBundle/Repository/AnnouncementRepository.php</file>
+            <file>file:/var/www/html/OWN/Sonata/src/AdminBundle/Controller/AnnouncementController.php</file>
+            <file>file:/var/www/html/OWN/Sonata/src/AdminBundle/Resources/public/js/filter.js</file>
+            <file>file:/var/www/html/OWN/Sonata/src/AdminBundle/Resources/views/Default/index.html.twig</file>
             <file>file:/var/www/html/OWN/Sonata/src/AdminBundle/Entity/Announcement.php</file>
-            <file>file:/var/www/html/OWN/Sonata/app/config/security.yml</file>
+            <file>file:/var/www/html/OWN/Sonata/src/AdminBundle/Controller/DefaultController.php</file>
+            <file>file:/var/www/html/OWN/Sonata/src/AdminBundle/Entity/CarMakers.php</file>
+            <file>file:/var/www/html/OWN/Sonata/src/AdminBundle/Repository/CarMakersRepository.php</file>
             <file>file:/var/www/html/OWN/Sonata/src/AdminBundle/Resources/config/services.yml</file>
+            <file>file:/var/www/html/OWN/Sonata/src/AdminBundle/Entity/CarModels.php</file>
             <file>file:/var/www/html/OWN/Sonata/src/AdminBundle/Admin/AnnouncementAdmin.php</file>
-            <file>file:/var/www/html/OWN/Sonata/src/AdminBundle/Resources/config/routing.yml</file>
+            <file>file:/var/www/html/OWN/Sonata/src/AdminBundle/Repository/CarModelsRepository.php</file>
         </group>
     </open-files>
 </project-private>

@@ -1,6 +1,10 @@
 admin_homepage:
     path:     /
-    defaults: { _controller: AdminBundle:Default:index }
+    defaults: { _controller: AdminBundle:Announcement:carMaker }
+    
+ajax:
+    path:     /ajax
+    defaults: { _controller: AdminBundle:Announcement:callJavascript }
 
 _sonata_admin:
     resource: .

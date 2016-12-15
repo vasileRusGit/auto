@@ -23,16 +23,16 @@
         <div class="filter-form">
             <div class="col-sm-3">
                 <select class="selectpicker" id="car-type" title="Alege marca masini">
-                    {% for entity in entities %}
-                        <option>{{ entity.carMaker }}</option>
+                    {% for make in carMakers %}
+                        <option>{{ make.title }}</option>
                     {% endfor %}
                 </select>
             </div>
 
             <div class="col-sm-3">
                 <select class="selectpicker" id="car-model" title="Alege modelul masini" data-live-search="true" disabled>
-                    {% for entity in entities %}
-                        <option>{{ entity.carModel }}</option>
+                    {% for model in carModels %}
+                        <option>{{ model.id }}</option>
                     {% endfor %}
                 </select>
             </div>
@@ -65,7 +65,7 @@
 
 
 
-        {% for entity in entities %}
+        {#{% for entity in entities %}
             <div class="events box">
 
                 {% if entity.stock <= 0 %}
@@ -84,31 +84,31 @@
                         {% endif %}
                     </header>
                     <section>
-                        <h3>
-                            {#                                <a href="{{ path('event_show', {'id': entity.id}) }}">{{ entity.productName }}</a>#}
+{#                        <h3>#}
+                            {#                                <a href="{{ path('event_show', {'id': entity.id}) }}">{{ entity.productName }}</a>
                         </h3>
 
                         <dl>
-                            <dt>Model:</dt>
-                            <dd>{{ entity.carMaker }}</dd>
+                            {#                            <dt>Model:</dt>#}
+{#                            <dd>{{ entity.title }}</dd>#}
 
-                            <dt>Model:</dt>
-                            <dd>{{ entity.carModel }}</dd>
+                            {#                            <dt>Model:</dt>#}
+{#                            <dd>{{ entity.title }}</dd>#}
 
-                            <dt>Details:</dt>
-                            <dd>{{ entity.description }}</dd>
-                            <dd>{{ entity.created.format('Y-m-d') }}</dd>
-                            <dd>{{ entity.stock }}</dd>
+                            {#                            <dt>Details:</dt>#}
+{#                            <dd>{{ entity.description }}</dd>#}
+{#                            <dd>{{ entity.created.format('Y-m-d') }}</dd>#}
+{#                            <dd>{{ entity.stock }}</dd>#}
 
-                        </dl>
-                    </section>
-                </article>
-            </div>
-        {% endfor %}
+{#                        </dl>#}
+{#                    </section>#}
+{#                </article>#}
+{#            </div>#}
+{#        {% endfor %}#}
 
-{#        {% for make in makers %}
-            <dd>{{ make.code }}</dd>
-        {% endfor %}#}
+        {#        {% for make in makers %}
+                    <dd>{{ make.code }}</dd>
+                {% endfor %}#}
 
     </div>
 {% endblock %}
@@ -129,13 +129,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/js/bootstrap-select.min.js"></script>
     {#    <script type="text/javascript" src="{{ asset('bundles/admin/js/select2.js') }}"></script>#}
     <script>
-        {#        $(".select2").select2({
-        
-                });
-        #}
-            $('.selectpicker').selectpicker({
-                size: 10
-            });
+        $('.selectpicker').selectpicker({
+            size: 10
+        });
     </script>
     <script type="text/javascript" src="{{ asset('bundles/admin/js/filter.js') }}"></script>
 {% endblock %}

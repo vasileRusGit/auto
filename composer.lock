@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e37eace1e4111ca95b229e83e1b7537a",
+    "hash": "67eca70a6e78c7c439193bd5123bbff9",
     "content-hash": "d80bf12baa60c186f89bc205501f4655",
     "packages": [
         {
@@ -1862,16 +1862,16 @@
         },
         {
             "name": "sonata-project/admin-bundle",
-            "version": "3.10.1",
+            "version": "3.10.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataAdminBundle.git",
-                "reference": "5cc62fad5fa358e9f3b5213f8d0e7ebf1ace53d4"
+                "reference": "369cbdd03ad45e3608aafa8b725bb3796198e503"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/5cc62fad5fa358e9f3b5213f8d0e7ebf1ace53d4",
-                "reference": "5cc62fad5fa358e9f3b5213f8d0e7ebf1ace53d4",
+                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/369cbdd03ad45e3608aafa8b725bb3796198e503",
+                "reference": "369cbdd03ad45e3608aafa8b725bb3796198e503",
                 "shasum": ""
             },
             "require": {
@@ -1955,7 +1955,7 @@
                 "bootstrap",
                 "sonata"
             ],
-            "time": "2016-12-13 13:58:25"
+            "time": "2016-12-15 09:24:09"
         },
         {
             "name": "sonata-project/block-bundle",
