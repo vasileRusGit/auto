@@ -1,0 +1,36 @@
+{% for entity in filter %}
+    <div class="events box">
+
+        {% if entity.stock <= 0 %}
+            <div class="ribbon ribbon-sold-out"><span>SOLD OUT</span></div>
+        {% else %}
+            <div class="ribbon ribbon-new"><span>NEW</span></div>
+        {% endif %}
+
+        <article>
+            <header class="map-container">
+                {% if entity.imageName is empty %}
+                    <img src="{{ asset('bundles/admin/images/jedi.png') }}"/>
+                {% else %}
+                    <img src="{{ asset('uploads/products/' ~entity.imageName) }}"/>
+                {% endif %}
+            </header>
+
+            <section>
+
+                <div class="col-sm-4">
+                    <dt>Model:</dt>
+                    <dd>{{ entity.carMaker }}</dd>
+                    <dt>Model:</dt>
+                    <dd>{{ entity.id }}</dd>
+                </div>
+
+                <div class="col-sm-4">
+                    <dd>{{ entity.description }}</dd>
+                    <dd>{{ entity.created.format('Y-m-d') }}</dd>
+                    <dd>{{ entity.stock }}</dd>
+                </div>
+            </section>
+        </article>
+    </div>
+{% endfor %}

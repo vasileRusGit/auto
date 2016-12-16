@@ -3,8 +3,12 @@ admin_homepage:
     defaults: { _controller: AdminBundle:Announcement:carMaker }
     
 ajax:
-    path:     /ajax
-    defaults: { _controller: AdminBundle:Announcement:callJavascript }
+    path:     /ajax_call
+    defaults: { _controller: AdminBundle:Announcement:callAjax }
+    
+form_submit:
+    path:     /form_submit
+    defaults: { _controller: AdminBundle:Announcement:formSubmit }
 
 _sonata_admin:
     resource: .

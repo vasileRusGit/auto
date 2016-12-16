@@ -2,7 +2,7 @@
 $(document).ready(function () {
     $('#car-type').change(function () {
         var carMaker = $('button[data-id="car-type"]').text();
-        console.log(carMaker);
+//        console.log(carMaker);
 
         // activate the car model dropdown when car maker dropdown is selected
         if (carMaker.includes("marca")) {
@@ -16,17 +16,41 @@ $(document).ready(function () {
         // get ajax request
         $.ajax({
             method: 'POST',
-            url: 'http://localhost:8000/ajax',
+            url: 'http://localhost:8000/ajax_call',
             data: {carMaker: carMaker},
             success: function (data) {
-                $("#car-model").empty();
-                
-                $.each(data, function (item) {
-                    console.log(data.id);
-                    $("#car-model").append('<option>' + item.id + item.title + '</option>');
-//                            append($("<option>").val(item.id).text(item.title));
+                $('#car-model').empty();
+
+                $.each(data, function () {
+                    $("#car-model").append($("<option />").val(this.id).text(this.title));
+                    $('.selectpicker').selectpicker('refresh');
                 });
-                
+            }
+        });
+    });
+
+
+    $('#search-form').on('click', function () {
+        var carMakerDropdown = $('button[data-id="car-type"]').text();
+        var carModelDropdown = $('button[data-id="car-model"]').text();
+        var carStartYearDropdown = $('button[data-id="car-year-start"]').text();
+        var carEndYearDropdown = $('button[data-id="car-year-end"]').text();
+        var carPieceDropdown = $('button[data-id="car-piece"]').text();
+
+        // get ajax request
+        $.ajax({
+            method: 'POST',
+            url: 'http://localhost:8000/form_submit',
+            data: {
+                carMakerDropdown: carMakerDropdown,
+                carModelDropdown: carModelDropdown,
+                carStartYearDropdown: carStartYearDropdown,
+                carEndYearDropdown: carEndYearDropdown,
+                carPieceDropdown: carPieceDropdown
+            },
+            success: function (data) {
+                $('.content').empty();
+                $('.content').html(data);
             }
         });
     });
