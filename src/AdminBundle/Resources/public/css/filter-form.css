@@ -1,4 +1,4 @@
-.filter-form {
+.filter-from {
     margin-top: 100px;
     border: 2px solid #1f7e9a;
     padding: 10px;
@@ -8,14 +8,10 @@
     display: none;
 }
 
-/*checkbox*/
-/*checkbox*/
-/* Base for label styling */
-/*.checkbox{*/
-    /*float: left;*/
-    /*margin-left: 10px;*/
-    /*margin-bottom: 20px;*/
-/*}*/
+body > div.container > form > div:nth-child(1) > div:nth-child(1) > div > button > span.filter-option.pull-left{
+    color:white;
+}
+
 [type="checkbox"]:not(:checked),
 [type="checkbox"]:checked {
     position: absolute;
@@ -59,4 +55,62 @@
 [type="checkbox"]:checked + label:after {
     opacity: 1;
     transform: scale(1);
+}
+
+
+/*vertica lline*/
+.down {
+    position: relative;
+    padding: 0 0 10px 35px;
+}
+.down::before {
+    content: '';
+    position: absolute;
+    left: 9px;
+    top: 15px;
+    width: 20px;
+    height: 40px;
+    border: 3px solid lightblue;
+    border-width: 4px 0 0 4px;
+}
+.down:last-child::before {
+    border-width: 2px 0 0;
+}
+.down.current{
+    color: #000;
+}
+.down.current::before {
+    border-top-color: dodgerblue;
+}
+.down.current::after {
+    border-color: dodgerblue;
+    background: dodgerblue;
+}
+
+.up {
+    position: relative;
+    padding: 0 0 10px 35px;
+}
+.up::before {
+    content: '';
+    position: absolute;
+    left: 9px;
+    bottom: 25px;
+    width: 20px;
+    height: 40px;
+    border: 3px solid lightblue;
+    border-width: 0 0 4px 4px;
+}
+.up:last-child::before {
+    border-width: 2px 0 0;
+}
+.up.current{
+    color: #000;
+}
+.up.current::before {
+    border-top-color: dodgerblue;
+}
+.up.current::after {
+    border-color: dodgerblue;
+    background: dodgerblue;
 }

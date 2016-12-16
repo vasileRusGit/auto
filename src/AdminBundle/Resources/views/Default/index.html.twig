@@ -20,98 +20,120 @@
 {% block body %}
     <div class="container">
         {#FILTER#}
-        <div class="filter-form">
-            <div class="col-sm-3">
-                <select class="selectpicker" id="car-type" title="Alege marca masini">
-                    {% for entity in entities %}
-                        <option>{{ entity.carMaker }}</option>
-                    {% endfor %}
-                </select>
+        <div class="filter-from">
+            <div class="row">
+                <div class="col-sm-3 down">
+                    <select class="selectpicker" id="car-type" data-style="btn-info" style="color:white;" title="Alege marca masini" data-live-search="true">
+                        {% for make in carMakers %}
+                            <option>{{ make.title }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+
+                <div class="col-sm-3 down">
+                    <select class="selectpicker" id="car-year-start" title="An fabricatie de la ..." data-live-search="true">
+                        {% set minYear = "now - 50 years"|date("Y") %}
+                        {% set maxYear = "now"|date("Y") %}
+                        {% for year in maxYear..minYear %}
+                            <option>{{ year }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="col-sm-3">
+                    <select class="selectpicker" id="car-piece" title="Alege piesa" data-live-search="true">
+                        {% for product in announcement %}
+                            <option>{{ product.productName }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class='col-sm-2 checkbox'>
+                    <input name='stock' type="checkbox" id="checkbox"/>
+                    <label for="checkbox">Stock</label>
+                </div>
             </div>
 
-            <div class="col-sm-3">
-                <select class="selectpicker" id="car-model" title="Alege modelul masini" data-live-search="true" disabled>
-                    {% for entity in entities %}
-                        <option>{{ entity.carModel }}</option>
-                    {% endfor %}
-                </select>
+            <div class="row">
+                <div class="col-sm-3 up">
+                    <select class="selectpicker" id="car-model" title="Alege modelul masini" data-live-search="true" disabled>
+                        {% for model in carModels %}
+                            <option>{{ model.title }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+
+                <div class="col-sm-3 up">
+                    <select class="selectpicker" id="car-year-end" title="An fabricatie pana la ..." data-live-search="true">
+                        {% set minYear = "now - 50 years"|date("Y") %}
+                        {% set maxYear = "now"|date("Y") %}
+                        {% for year in maxYear..minYear %}
+                            <option>{{ year }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-sm-3">
+
+                </div>
+                <div class="col-sm-3">
+                </div>
             </div>
 
-            <div class="col-sm-3">
-                <select class="selectpicker" id="car-year" title="Alege anul masini" data-live-search="true">
-                    {% set minYear = "now - 50 years"|date("Y") %}
-                    {% set maxYear = "now"|date("Y") %}
-                    {% for year in maxYear..minYear %}
-                        <option>{{ year }}</option>
-                    {% endfor %}
-                </select>
-            </div>
 
-            <div class="col-sm-3">
-                <select class="selectpicker" id="car-year" title="Alege piesa" data-live-search="true">
-                    <option>Mustard</option>
-                    <option>Ketchup</option>
-                    <option>Relish</option>
-                </select>
+            <div class="row" style="margin-top:0px;">
+                <div class='col-sm-2' style="float:right">
+                    <button id="search-form" class="btn btn-primary">Search</button>
+                </div>
             </div>
-
-            <div class='col-sm-2 checkbox'>
-                <input name='remember' type="checkbox" id="checkbox"/>
-                <label for="checkbox">Stock</label>
-            </div>
-
-            <button id="search_button" type="submit" class="btn btn-primary">Search</button>
         </div>
 
 
+        <div class="content">
+            {% for entity in announcement %}
+                <div class="events box">
 
-        {% for entity in entities %}
-            <div class="events box">
+                    {% if entity.stock <= 0 %}
+                        <div class="ribbon ribbon-sold-out"><span>SOLD OUT</span></div>
+                    {% else %}
+                        <div class="ribbon ribbon-new"><span>NEW</span></div>
+                    {% endif %}
 
-                {% if entity.stock <= 0 %}
-                    <div class="ribbon ribbon-sold-out"><span>SOLD OUT</span></div>
-                {% else %}
-                    <div class="ribbon ribbon-new"><span>New</span></div>
-                {% endif %}
+                    <article>
+                        <header class="map-container">
+                            {% if entity.imageName is empty %}
+                                <img src="{{ asset('bundles/admin/images/jedi.png') }}"/>
+                            {% else %}
+                                <img src="{{ asset('uploads/products/' ~entity.imageName) }}"/>
+                            {% endif %}
+                        </header>
 
+                        <section>
+                            <h3>
+                                {#                            <a href="{{ path('event_show', {'id': entity.id}) }}">{{ entity.productName }}</a>#}
+                            </h3>
 
-                <article>
-                    <header class="map-container">
-                        {% if entity.imageName is empty %}
-                            <img src="{{ asset('bundles/admin/images/jedi.png') }}"/>
-                        {% else %}
-                            <img src="{{ asset('uploads/products/' ~entity.imageName) }}"/>
-                        {% endif %}
-                    </header>
-                    <section>
-                        <h3>
-                            {#                                <a href="{{ path('event_show', {'id': entity.id}) }}">{{ entity.productName }}</a>#}
-                        </h3>
+                            <div class="col-sm-4">
+                                <dt>Model:</dt>
+                                <dd>{{ entity.carMaker }}</dd>
+                                <dt>Model:</dt>
+                                <dd>{{ entity.carModel }}</dd>
+                            </div>
 
-                        <dl>
-                            <dt>Model:</dt>
-                            <dd>{{ entity.carMaker }}</dd>
-
-                            <dt>Model:</dt>
-                            <dd>{{ entity.carModel }}</dd>
-
-                            <dt>Details:</dt>
-                            <dd>{{ entity.description }}</dd>
-                            <dd>{{ entity.created.format('Y-m-d') }}</dd>
-                            <dd>{{ entity.stock }}</dd>
-
-                        </dl>
-                    </section>
-                </article>
-            </div>
-        {% endfor %}
-
-{#        {% for make in makers %}
-            <dd>{{ make.code }}</dd>
-        {% endfor %}#}
-
+                            <div class="col-sm-4">
+                                <dd>{{ entity.description }}</dd>
+                                <dd>{{ entity.created.format('Y-m-d') }}</dd>
+                                <dd>{{ entity.stock }}</dd>
+                            </div>
+                        </section>
+                    </article>
+                </div>
+            {% endfor %}
+        </div>
     </div>
 {% endblock %}
+
 
 
 
@@ -127,15 +149,14 @@
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/js/bootstrap-select.min.js"></script>
-    {#    <script type="text/javascript" src="{{ asset('bundles/admin/js/select2.js') }}"></script>#}
+    <script type="text/javascript" src="{{ asset('bundles/admin/js/select2.js')}}"></script>
     <script>
-        {#        $(".select2").select2({
-        
-                });
-        #}
-            $('.selectpicker').selectpicker({
+        $('.selectpicker').selectpicker({
+        {#            style: 'btn-info',#}
                 size: 10
             });
+
     </script>
-    <script type="text/javascript" src="{{ asset('bundles/admin/js/filter.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/admin/js/filter.js')}}"></script>
+
 {% endblock %}
