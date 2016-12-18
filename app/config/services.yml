@@ -12,3 +12,9 @@ services:
     sonata.user.admin.group:
       abstract: true
       public: false
+
+#my_paginator:
+#    class: AshleyDawson\SimplePagination\Paginator
+#    calls:
+#      - [ setItemsPerPage, [ 10 ] ]
+#      - [ setPagesInRange, [ 5 ] ]

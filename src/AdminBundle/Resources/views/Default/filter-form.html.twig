@@ -1,4 +1,4 @@
-{% for entity in filter %}
+{% for entity in pagination.items %}
     <div class="events box">
 
         {% if entity.stock <= 0 %}
@@ -34,3 +34,9 @@
         </article>
     </div>
 {% endfor %}
+
+<div id="filter-pagination">
+    <div class="navigation text-right">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+</div>

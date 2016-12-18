@@ -2,7 +2,8 @@
 $(document).ready(function () {
     $('#car-type').change(function () {
         var carMaker = $('button[data-id="car-type"]').text();
-//        console.log(carMaker);
+
+        var loading = new $.LoadingBox({loadingImageSrc: "bundles/admin/images/default.gif"});
 
         // activate the car model dropdown when car maker dropdown is selected
         if (carMaker.includes("marca")) {
@@ -18,6 +19,9 @@ $(document).ready(function () {
             method: 'POST',
             url: 'http://localhost:8000/ajax_call',
             data: {carMaker: carMaker},
+            complete: function () {
+                loading.close();
+            },
             success: function (data) {
                 $('#car-model').empty();
 
@@ -36,19 +40,32 @@ $(document).ready(function () {
         var carStartYearDropdown = $('button[data-id="car-year-start"]').text();
         var carEndYearDropdown = $('button[data-id="car-year-end"]').text();
         var carPieceDropdown = $('button[data-id="car-piece"]').text();
+        var stockCheckbox = $('input[name="stock"]').is(':checked');
+
+        var loading = new $.LoadingBox({loadingImageSrc: "bundles/admin/images/default.gif"});
 
         // get ajax request
         $.ajax({
             method: 'POST',
             url: 'http://localhost:8000/form_submit',
+
             data: {
                 carMakerDropdown: carMakerDropdown,
                 carModelDropdown: carModelDropdown,
                 carStartYearDropdown: carStartYearDropdown,
                 carEndYearDropdown: carEndYearDropdown,
-                carPieceDropdown: carPieceDropdown
+                carPieceDropdown: carPieceDropdown,
+                stockCheckbox: stockCheckbox
+            },
+            complete: function () {
+                loading.close();
+                // // pagination
+                // if ($('#filter-pagination').is(':visible')) {
+                //     $('#pagination').hide();
+                // }
             },
             success: function (data) {
+
                 $('.content').empty();
                 $('.content').html(data);
             }
@@ -57,18 +74,3 @@ $(document).ready(function () {
 });
 
 
-
-//// get the name of the select dropdown
-//$(document).ready(function () {
-//    $('select').change(function () {
-//        var carMakerId = document.getElementsByTagName('select')[0].id;
-//        var carMakerName = document.getElementById(carMakerId).value;
-//        console.log(carMakerName);
-//
-//        $.ajax({
-//            method: 'POST',
-//            url: 'http://localhost:8000/',
-//            data: {carMakerName: carMakerName}
-//        });
-//    });
-//});
