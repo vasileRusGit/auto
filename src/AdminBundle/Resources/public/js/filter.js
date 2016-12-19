@@ -42,34 +42,63 @@ $(document).ready(function () {
         var carPieceDropdown = $('button[data-id="car-piece"]').text();
         var stockCheckbox = $('input[name="stock"]').is(':checked');
 
+        // search engine
+        var searchEngine = $('#search-engine').val();
+
         var loading = new $.LoadingBox({loadingImageSrc: "bundles/admin/images/default.gif"});
 
-        // get ajax request
-        $.ajax({
-            method: 'POST',
-            url: 'http://localhost:8000/form_submit',
+        // get ajax request from search engine
+        if (searchEngine !== '') {
+            $.ajax({
+                method: 'POST',
+                url: 'http://localhost:8000/search_engine',
 
-            data: {
-                carMakerDropdown: carMakerDropdown,
-                carModelDropdown: carModelDropdown,
-                carStartYearDropdown: carStartYearDropdown,
-                carEndYearDropdown: carEndYearDropdown,
-                carPieceDropdown: carPieceDropdown,
-                stockCheckbox: stockCheckbox
-            },
-            complete: function () {
-                loading.close();
-                // // pagination
-                // if ($('#filter-pagination').is(':visible')) {
-                //     $('#pagination').hide();
-                // }
-            },
-            success: function (data) {
+                data: {
+                    searchEngine: searchEngine
+                },
+                complete: function () {
+                    loading.close();
+                    $('#search-engine').val('');
+                    // pagination
+                    if ($('#filter-pagination').is(':visible')) {
+                        $('#pagination').hide();
+                        $('#filter-pagination').show();
+                    }
+                },
+                success: function (data) {
+                    $('.content').empty();
+                    $('.content').html(data);
+                }
+            });
+        } else {
+            // get ajax request from filter
+            $.ajax({
+                method: 'POST',
+                url: 'http://localhost:8000/form_submit',
 
-                $('.content').empty();
-                $('.content').html(data);
-            }
-        });
+                data: {
+                    carMakerDropdown: carMakerDropdown,
+                    carModelDropdown: carModelDropdown,
+                    carStartYearDropdown: carStartYearDropdown,
+                    carEndYearDropdown: carEndYearDropdown,
+                    carPieceDropdown: carPieceDropdown,
+                    stockCheckbox: stockCheckbox,
+                    searchEngine: searchEngine
+                },
+                complete: function () {
+                    loading.close();
+                },
+                success: function (data) {
+                    $('.content').empty();
+                    $('.content').html(data);
+                    // pagination
+                    if ($('#filter-pagination').is(':visible')) {
+                        $('#pagination').hide();
+                        $('#filter-pagination').show();
+                    }
+                }
+            });
+        }
     });
 });
 

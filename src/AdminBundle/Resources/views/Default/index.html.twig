@@ -21,6 +21,18 @@
     <div class="container">
         {#FILTER#}
         <div class="filter-from">
+            {#SEARCH ENGINE#}
+            <div id="custom-search-input">
+                <div class="input-group col-md-10">
+                    <span class="input-group-btn" >
+                        <i  class="glyphicon glyphicon-search"></i>
+                    </span>
+                    <input id="search-engine" type="text" class="form-control input-lg" placeholder="search..." />
+                </div>
+            </div>
+
+            <h1>OR</h1>
+
             {# FILTER ROW #}
             <div class="row">
                 <div class="col-sm-3 down">
@@ -34,9 +46,9 @@
                 <div class="col-sm-3 down">
                     <select class="selectpicker" id="car-year-start" title="An fabricatie de la ..."
                             data-live-search="true">
-                        {% set minYear = "now - 50 years"|date("Y") %}
+                        {% set minYear = "now - 36 years"|date("Y") %}
                         {% set maxYear = "now"|date("Y") %}
-                        {% for year in maxYear..minYear %}
+                        {% for year in minYear..maxYear %}
                             <option>{{ year }}</option>
                         {% endfor %}
                     </select>
@@ -70,9 +82,9 @@
                 <div class="col-sm-3 up">
                     <select class="selectpicker" id="car-year-end" title="An fabricatie pana la ..."
                             data-live-search="true">
-                        {% set minYear = "now - 50 years"|date("Y") %}
+                        {% set minYear = "now - 36 years"|date("Y") %}
                         {% set maxYear = "now"|date("Y") %}
-                        {% for year in maxYear..minYear %}
+                        {% for year in minYear..maxYear %}
                             <option>{{ year }}</option>
                         {% endfor %}
                     </select>
@@ -91,11 +103,12 @@
             </div>
 
             {#FILTER ROW#}
-            <div class="row" style="margin-top:0px;">
+            <div class="row">
                 <div class='col-sm-2' style="float:right">
-                    <button id="search-form" class="btn btn-primary">Search</button>
+                    <button id="search-form" class="btn btn-primary" type="button"><span class="glyphicon glyphicon-search"></span>&nbsp;&nbsp;&nbsp;Search</button>
                 </div>
             </div>
+
         </div> {# end filter #}
 
 
@@ -103,51 +116,52 @@
             {# Iterate over items for the current page, rendering each one #}
             {% for entity in pagination.items %}
                 {#{% for entity in announcement %}#}
-                    <div class="events box">
+                <div class="events box">
 
-                        {% if entity.stock > 0 %}
-                            <div class="ribbon ribbon-new"><span>NEW</span></div>
-                        {% else %}
-                            <div class="ribbon ribbon-sold-out"><span>SOLD OUT</span></div>
-                        {% endif %}
+                    {% if entity.stock > 0 %}
+                        <div class="ribbon ribbon-new"><span>NEW</span></div>
+                    {% else %}
+                        <div class="ribbon ribbon-sold-out"><span>SOLD OUT</span></div>
+                    {% endif %}
 
-                        <article>
-                            <header class="map-container">
-                                {% if entity.imageName is empty %}
-                                    <img src="{{ asset('bundles/admin/images/jedi.png') }}"/>
-                                {% else %}
-                                    <img src="{{ asset('uploads/products/' ~entity.imageName) }}"/>
-                                {% endif %}
-                            </header>
+                    <article>
+                        <header class="map-container">
+                            {% if entity.imageName is empty %}
+                                <img src="{{ asset('bundles/admin/images/jedi.png') }}"/>
+                            {% else %}
+                                <img src="{{ asset('uploads/products/' ~entity.imageName) }}"/>
+                            {% endif %}
+                        </header>
 
-                            <section>
-                                <h3>
-                                    {#                            <a href="{{ path('event_show', {'id': entity.id}) }}">{{ entity.productName }}</a>#}
-                                </h3>
+                        <section>
+                            <h3>
+                                {#                            <a href="{{ path('event_show', {'id': entity.id}) }}">{{ entity.productName }}</a>#}
+                            </h3>
 
-                                <div class="col-sm-4">
-                                    <dt>Model:</dt>
-                                    <dd>{{ entity.carMaker }}</dd>
-                                    <dt>Model:</dt>
-                                    <dd>{{ entity.carModel }}</dd>
-                                </div>
+                            <div class="col-sm-4">
+                                <dt>Model:</dt>
+                                <dd>{{ entity.carMaker }}</dd>
+                                <dt>Model:</dt>
+                                <dd>{{ entity.carModel }}</dd>
+                            </div>
 
-                                <div class="col-sm-4">
-                                    <dd>{{ entity.description }}</dd>
-                                    <dd>{{ entity.created.format('Y-m-d') }}</dd>
-                                    <dd>{{ entity.stock }}</dd>
-                                </div>
-                            </section>
-                        </article>
-                    </div>
+                            <div class="col-sm-4">
+                                <dd>{{ entity.description }}</dd>
+                                <dd>{{ entity.created.format('Y-m-d') }}</dd>
+                                <dd>{{ entity.stock }}</dd>
+                            </div>
+                        </section>
+                    </article>
+                </div>
                 {#{% endfor %}#}
             {% endfor %}
         </div>
 
-        {# display navigation #}
-        <div class="navigation text-right">
-            {{ knp_pagination_render(pagination) }}
-        </div>
+        <div id="pagination">
+            {# display navigation #}
+            <div class="navigation text-right">
+                {{ knp_pagination_render(pagination) }}
+            </div>
     </div>
 {% endblock %}
 
@@ -158,20 +172,20 @@
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"
             integrity="sha384-THPy051/pYDQGanwU6poAc/hOdQxjnOEXzbT+OuUAFqNqFjL+4IGLBgCJC3ZOShY"
-            crossorigin="anonymous"></script>
+    crossorigin="anonymous"></script>
     <!-- Bootstrap 4 Alpha JS -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/js/bootstrap.min.js"
             integrity="sha384-VjEeINv9OSwtWFLAtmc4JCtEJXXBub00gtSnszmspDLCtC0I4z4nqz7rEFbIZLLU"
-            crossorigin="anonymous"></script>
+    crossorigin="anonymous"></script>
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/js/bootstrap-select.min.js"></script>
     <script type="text/javascript" src="{{ asset('bundles/admin/js/select2.js') }}"></script>
     <script>
         $('.selectpicker').selectpicker({
-            {#            style: 'btn-info',#}
-            size: 10
-        });
+        {#            style: 'btn-info',#}
+                size: 10
+            });
 
     </script>
     <script type="text/javascript" src="{{ asset('bundles/admin/js/filter.js') }}"></script>

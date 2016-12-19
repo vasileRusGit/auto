@@ -18,7 +18,6 @@ class AppKernel extends Kernel
             new AppBundle\AppBundle(),
 
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
-            new AshleyDawson\SimplePaginationBundle\AshleyDawsonSimplePaginationBundle(),
             new Sonata\CoreBundle\SonataCoreBundle(),
             new Sonata\BlockBundle\SonataBlockBundle(),
             new Sonata\EasyExtendsBundle\SonataEasyExtendsBundle(),

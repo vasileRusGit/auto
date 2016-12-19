@@ -9,6 +9,10 @@ ajax:
 form_submit:
     path:     /form_submit
     defaults: { _controller: AdminBundle:Announcement:formSubmit }
+    
+search_engine:
+    path:     /search_engine
+    defaults: { _controller: AdminBundle:Announcement:searchEngine }
 
 _sonata_admin:
     resource: .
