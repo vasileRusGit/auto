@@ -54,6 +54,12 @@ $(document).ready(function () {
                 url: 'http://localhost:8000/search_engine',
 
                 data: {
+                    carMakerDropdown: carMakerDropdown,
+                    carModelDropdown: carModelDropdown,
+                    carStartYearDropdown: carStartYearDropdown,
+                    carEndYearDropdown: carEndYearDropdown,
+                    carPieceDropdown: carPieceDropdown,
+                    stockCheckbox: stockCheckbox,
                     searchEngine: searchEngine
                 },
                 complete: function () {
@@ -82,8 +88,8 @@ $(document).ready(function () {
                     carStartYearDropdown: carStartYearDropdown,
                     carEndYearDropdown: carEndYearDropdown,
                     carPieceDropdown: carPieceDropdown,
-                    stockCheckbox: stockCheckbox,
-                    searchEngine: searchEngine
+                    stockCheckbox: stockCheckbox
+
                 },
                 complete: function () {
                     loading.close();

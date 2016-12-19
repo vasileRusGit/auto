@@ -10,8 +10,11 @@
     display: none;
 }
 
-body > div.container > div.filter-from > div:nth-child(1) > div:nth-child(1) > div > button > span.filter-option.pull-left {
+body > div > div.filter-from > div:nth-child(3) > div:nth-child(1) > div > button > span.filter-option.pull-left {
     color: white;
+}
+body > div > div.filter-from > div:nth-child(4) > div:nth-child(1) > div{
+    background-color: white;
 }
 .selectpicker{
     width: auto;
@@ -137,66 +140,32 @@ span{
 /*vertica lline*/
 .down {
     position: relative;
-    padding: 0 0 10px 35px;
+    padding: 0 0 10px 32px;
 }
 
 .down::before {
     content: '';
     position: absolute;
-    left: 9px;
+    left: 20px;
     top: 15px;
     width: 20px;
     height: 40px;
-    border: 3px solid lightblue;
+    border: 1px solid #a90a0d;
     border-width: 4px 0 0 4px;
-}
-
-.down:last-child::before {
-    border-width: 2px 0 0;
-}
-
-.down.current {
-    color: #000;
-}
-
-.down.current::before {
-    border-top-color: dodgerblue;
-}
-
-.down.current::after {
-    border-color: dodgerblue;
-    background: dodgerblue;
 }
 
 .up {
     position: relative;
-    padding: 0 0 10px 35px;
+    padding: 0 0 10px 32px;
 }
 
 .up::before {
     content: '';
     position: absolute;
-    left: 9px;
+    left: 20px;
     bottom: 25px;
     width: 20px;
     height: 40px;
-    border: 3px solid lightblue;
+    border: 1px solid #a90a0d;
     border-width: 0 0 4px 4px;
-}
-
-.up:last-child::before {
-    border-width: 2px 0 0;
-}
-
-.up.current {
-    color: #000;
-}
-
-.up.current::before {
-    border-top-color: dodgerblue;
-}
-
-.up.current::after {
-    border-color: dodgerblue;
-    background: dodgerblue;
 }
