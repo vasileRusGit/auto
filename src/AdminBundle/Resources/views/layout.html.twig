@@ -44,6 +44,11 @@
     </header>
 {% endblock %}
 
+{% block body %}
+    {% block content %}
+    {%endblock %}
+{%endblock%}
+
 {% block javascripts %}
-    <link rel="stylesheet" href="{{ asset('bundles/admin/js/filter.js') }}"/>
+    <link href="{{ asset('bundles/admin/js/filter.js') }}"/>
 {% endblock %}

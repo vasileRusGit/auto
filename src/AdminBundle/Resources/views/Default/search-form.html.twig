@@ -1,5 +1,5 @@
 <div class="content">
-    {% for entity in pagination.items %}
+    {% for entity in pagination_search.items %}
         <div class="events box">
 
             {% if entity.stock <= 0 %}
@@ -37,13 +37,8 @@
     {% endfor %}
 
     <div id="filter-pagination">
-        <div class="navigation text-right">
-            {{ knp_pagination_render(pagination) }}
-        </div>
-
-        {# total items count #}
-        <div class="count">
-            {{ pagination.getTotalItemCount }}
+        <div class="navigation text-right" data-element="load">
+            {{ knp_pagination_render(pagination_search) }}
         </div>
     </div>
 </div>

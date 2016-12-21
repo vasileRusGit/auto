@@ -33,8 +33,7 @@ $(document).ready(function () {
         });
     });
 
-
-    $('#search-form').on('click', function () {
+    $('[data-element=load]').on('click', function () {
         var carMakerDropdown = $('button[data-id="car-type"]').text();
         var carModelDropdown = $('button[data-id="car-model"]').text();
         var carStartYearDropdown = $('button[data-id="car-year-start"]').text();
@@ -48,64 +47,32 @@ $(document).ready(function () {
         var loading = new $.LoadingBox({loadingImageSrc: "bundles/admin/images/default.gif"});
 
         // get ajax request from search engine
-        if (searchEngine !== '') {
-            $.ajax({
-                method: 'POST',
-                url: 'http://localhost:8000/search_engine',
+        $.ajax({
+            method: 'GET',
+            url: 'http://localhost:8000/search_engine',
 
-                data: {
-                    carMakerDropdown: carMakerDropdown,
-                    carModelDropdown: carModelDropdown,
-                    carStartYearDropdown: carStartYearDropdown,
-                    carEndYearDropdown: carEndYearDropdown,
-                    carPieceDropdown: carPieceDropdown,
-                    stockCheckbox: stockCheckbox,
-                    searchEngine: searchEngine
-                },
-                complete: function () {
-                    loading.close();
-                    $('#search-engine').val('');
-                    // pagination
-                    if ($('#filter-pagination').is(':visible')) {
-                        $('#pagination').hide();
-                        $('#filter-pagination').show();
-                    }
-                },
-                success: function (data) {
-                    $('.content').empty();
-                    $('.content').html(data);
+            data: {
+                carMakerDropdown: carMakerDropdown,
+                carModelDropdown: carModelDropdown,
+                carStartYearDropdown: carStartYearDropdown,
+                carEndYearDropdown: carEndYearDropdown,
+                carPieceDropdown: carPieceDropdown,
+                stockCheckbox: stockCheckbox,
+                searchEngine: searchEngine
+            },
+            complete: function () {
+                loading.close();
+                $('#search-engine').val('');
+                // pagination
+                if ($('#filter-pagination').is(':visible')) {
+                    $('#pagination').hide();
+                    $('#filter-pagination').show();
                 }
-            });
-        } else {
-            // get ajax request from filter
-            $.ajax({
-                method: 'POST',
-                url: 'http://localhost:8000/form_submit',
-
-                data: {
-                    carMakerDropdown: carMakerDropdown,
-                    carModelDropdown: carModelDropdown,
-                    carStartYearDropdown: carStartYearDropdown,
-                    carEndYearDropdown: carEndYearDropdown,
-                    carPieceDropdown: carPieceDropdown,
-                    stockCheckbox: stockCheckbox
-
-                },
-                complete: function () {
-                    loading.close();
-                },
-                success: function (data) {
-                    $('.content').empty();
-                    $('.content').html(data);
-                    // pagination
-                    if ($('#filter-pagination').is(':visible')) {
-                        $('#pagination').hide();
-                        $('#filter-pagination').show();
-                    }
-                }
-            });
-        }
+            },
+            success: function (data) {
+                $('.content').empty();
+                $('.content').html(data);
+            }
+        });
     });
 });
-
-

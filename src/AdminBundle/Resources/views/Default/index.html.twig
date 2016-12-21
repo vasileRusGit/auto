@@ -20,151 +20,152 @@
 {% block body %}
     <div class="container">
         {#FILTER#}
-        <div class="filter-from">
-            {#SEARCH ENGINE#}
-            <div id="custom-search-input">
-                <div class="input-group col-md-10">
-                    <span class="input-group-btn" >
-                        <i  class="glyphicon glyphicon-search"></i>
-                    </span>
-                    <input id="search-engine" type="text" class="form-control input-lg" placeholder="search..." />
+        <form action="http://localhost:8000/search_engine" method="GET">
+            <div class="filter-from">
+                {#SEARCH ENGINE#}
+                <div id="custom-search-input">
+                    <div class="input-group col-md-10">
+                        <span class="input-group-btn" >
+                            <i  class="glyphicon glyphicon-search"></i>
+                        </span>
+                        <input id="search-engine" name='search_engine' type="text" class="form-control input-lg" placeholder="search..." />
+                    </div>
                 </div>
+                <h1>OR</h1>
+
+                {# FILTER ROW #}
+                <div class="row">
+                    <div class="col-sm-3 down">
+                        <select class="selectpicker" id="car-type" name='car_makers' data-style="btn-info" style="color:white;"
+                                title="Alege marca masini" data-live-search="true">
+                            {% for make in carMakers %}
+                                <option>{{ make.title }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-sm-3 down">
+                        <select class="selectpicker" id="car-year-start" name='car-year-start' title="An fabricatie de la ..."
+                                data-live-search="true">
+                            {% set minYear = "now - 36 years"|date("Y") %}
+                            {% set maxYear = "now"|date("Y") %}
+                            {% for year in minYear..maxYear %}
+                                <option>{{ year }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-sm-3 down">
+                        <select class="selectpicker" id="car-piece" name='car-piece' title="Pret de la ..." data-live-search="true">
+                            {% for product in announcement %}
+                                <option>{{ product.productName }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-sm-3">
+                        <select class="selectpicker" id="car-piece" name='car-piece' title="Alege piesa" data-live-search="true">
+                            {% for product in announcement %}
+                                <option>{{ product.productName }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                {# FILTER ROW #}
+                <div class="row">
+                    <div class="col-sm-3 up">
+                        <select class="selectpicker" id="car-model" name='car_models' title="Alege modelul masini" data-live-search="true" disabled>
+                            {% for model in carModels %}
+                                <option>{{ model.title }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-sm-3 up">
+                        <select class="selectpicker" id="car-year-end" name='car-year-end' title="An fabricatie pana la ..."
+                                data-live-search="true">
+                            {% set minYear = "now - 36 years"|date("Y") %}
+                            {% set maxYear = "now"|date("Y") %}
+                            {% for year in minYear..maxYear %}
+                                <option>{{ year }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-sm-3 up">
+                        <select class="selectpicker" id="car-piece" name='car-piece' title="Pret pana la ..." data-live-search="true">
+                            {% for product in announcement %}
+                                <option>{{ product.productName }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class='col-sm-1 checkbox'>
+                        <input name='stock' type="checkbox" name='stock' id="stock"/>
+                        <label for="stock">Stock</label>
+                    </div>
+                </div>
+
+                {#FILTER ROW#}
+                <div class="row">
+                    <div class='col-sm-2' style="float:right">
+                        <input data-element="load" id="search-form" class="btn btn-primary" type="submit" value='Search'>
+                    </div>
+                </div>
+
+            </div> {# end filter #}
+        </form>
+
+
+        {% block content %}
+            <div class="content">
+                {# Iterate over items for the current page, rendering each one #}
+                {% for entity in pagination.items %}
+                    {#{% for entity in announcement %}#}
+                    <div class="events box">
+
+                        {% if entity.stock > 0 %}
+                            <div class="ribbon ribbon-new"><span>NEW</span></div>
+                        {% else %}
+                            <div class="ribbon ribbon-sold-out"><span>SOLD OUT</span></div>
+                        {% endif %}
+
+                        <article>
+                            <header class="map-container">
+                                {% if entity.imageName is empty %}
+                                    <img src="{{ asset('bundles/admin/images/jedi.png') }}"/>
+                                {% else %}
+                                    <img src="{{ asset('uploads/products/' ~entity.imageName) }}"/>
+                                {% endif %}
+                            </header>
+
+                            <section>
+                                <h3>
+                                    {#                            <a href="{{ path('event_show', {'id': entity.id}) }}">{{ entity.productName }}</a>#}
+                                </h3>
+
+                                <div class="col-sm-4">
+                                    <dt>Model:</dt>
+                                    <dd>{{ entity.carMaker }}</dd>
+                                    <dt>Model:</dt>
+                                    <dd>{{ entity.carModel }}</dd>
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <dd>{{ entity.description }}</dd>
+                                    <dd>{{ entity.created.format('Y-m-d') }}</dd>
+                                    <dd>{{ entity.stock }}</dd>
+                                </div>
+                            </section>
+                        </article>
+                    </div>
+                    {#{% endfor %}#}
+                {% endfor %}
             </div>
 
-            <h1>OR</h1>
-
-            {# FILTER ROW #}
-            <div class="row">
-                <div class="col-sm-3 down">
-                    <select class="selectpicker" id="car-type" data-style="btn-info" style="color:white;"
-                            title="Alege marca masini" data-live-search="true">
-                        {% for make in carMakers %}
-                            <option>{{ make.title }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <div class="col-sm-3 down">
-                    <select class="selectpicker" id="car-year-start" title="An fabricatie de la ..."
-                            data-live-search="true">
-                        {% set minYear = "now - 36 years"|date("Y") %}
-                        {% set maxYear = "now"|date("Y") %}
-                        {% for year in minYear..maxYear %}
-                            <option>{{ year }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <div class="col-sm-3 down">
-                    <select class="selectpicker" id="car-piece" title="Pret de la ..." data-live-search="true">
-                        {% for product in announcement %}
-                            <option>{{ product.productName }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <div class="col-sm-3">
-                    <select class="selectpicker" id="car-piece" title="Alege piesa" data-live-search="true">
-                        {% for product in announcement %}
-                            <option>{{ product.productName }}</option>
-                        {% endfor %}
-                    </select>
+            <div id="pagination">
+                <div class="navigation text-right">
+                    {{ knp_pagination_render(pagination) }}
                 </div>
             </div>
-
-            {# FILTER ROW #}
-            <div class="row">
-                <div class="col-sm-3 up">
-                    <select class="selectpicker" id="car-model" title="Alege modelul masini" data-live-search="true"
-                            disabled>
-                        {% for model in carModels %}
-                            <option>{{ model.title }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <div class="col-sm-3 up">
-                    <select class="selectpicker" id="car-year-end" title="An fabricatie pana la ..."
-                            data-live-search="true">
-                        {% set minYear = "now - 36 years"|date("Y") %}
-                        {% set maxYear = "now"|date("Y") %}
-                        {% for year in minYear..maxYear %}
-                            <option>{{ year }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <div class="col-sm-3 up">
-                    <select class="selectpicker" id="car-piece" title="Pret pana la ..." data-live-search="true">
-                        {% for product in announcement %}
-                            <option>{{ product.productName }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <div class='col-sm-1 checkbox'>
-                    <input name='stock' type="checkbox" id="stock"/>
-                    <label for="stock">Stock</label>
-                </div>
-            </div>
-
-            {#FILTER ROW#}
-            <div class="row">
-                <div class='col-sm-2' style="float:right">
-                    <button id="search-form" class="btn btn-primary" type="button"><span class="glyphicon glyphicon-search"></span>&nbsp;&nbsp;&nbsp;Search</button>
-                </div>
-            </div>
-
-        </div> {# end filter #}
-
-
-        <div class="content">
-            {# Iterate over items for the current page, rendering each one #}
-            {% for entity in pagination.items %}
-                {#{% for entity in announcement %}#}
-                <div class="events box">
-
-                    {% if entity.stock > 0 %}
-                        <div class="ribbon ribbon-new"><span>NEW</span></div>
-                    {% else %}
-                        <div class="ribbon ribbon-sold-out"><span>SOLD OUT</span></div>
-                    {% endif %}
-
-                    <article>
-                        <header class="map-container">
-                            {% if entity.imageName is empty %}
-                                <img src="{{ asset('bundles/admin/images/jedi.png') }}"/>
-                            {% else %}
-                                <img src="{{ asset('uploads/products/' ~entity.imageName) }}"/>
-                            {% endif %}
-                        </header>
-
-                        <section>
-                            <h3>
-                                {#                            <a href="{{ path('event_show', {'id': entity.id}) }}">{{ entity.productName }}</a>#}
-                            </h3>
-
-                            <div class="col-sm-4">
-                                <dt>Model:</dt>
-                                <dd>{{ entity.carMaker }}</dd>
-                                <dt>Model:</dt>
-                                <dd>{{ entity.carModel }}</dd>
-                            </div>
-
-                            <div class="col-sm-4">
-                                <dd>{{ entity.description }}</dd>
-                                <dd>{{ entity.created.format('Y-m-d') }}</dd>
-                                <dd>{{ entity.stock }}</dd>
-                            </div>
-                        </section>
-                    </article>
-                </div>
-                {#{% endfor %}#}
-            {% endfor %}
-        </div>
-
-        <div id="pagination">
-            {# display navigation #}
-            <div class="navigation text-right">
-                {{ knp_pagination_render(pagination) }}
-            </div>
+        {% endblock %}
     </div>
 {% endblock %}
-
 
 
 
@@ -183,12 +184,10 @@
     <script type="text/javascript" src="{{ asset('bundles/admin/js/select2.js') }}"></script>
     <script>
         $('.selectpicker').selectpicker({
-        {#            style: 'btn-info',#}
-                size: 10
-            });
+            size: 10
+        });
 
     </script>
     <script type="text/javascript" src="{{ asset('bundles/admin/js/filter.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/admin/js/jquery.LoadingBox.js') }}"></script>
-
 {% endblock %}
