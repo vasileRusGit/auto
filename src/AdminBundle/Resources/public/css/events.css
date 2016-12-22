@@ -55,11 +55,14 @@
 
 .ribbon {
     position: absolute;
-    right: -5px; top: -5px;
+    left: -5px;
+    top: -5px;
     z-index: 1;
     overflow: hidden;
-    width: 75px; height: 75px;
+    width: 75px;
+    height: 75px;
     text-align: right;
+    transform: rotate(-90deg);
 }
 .ribbon-new span {
     font-size: 10px;

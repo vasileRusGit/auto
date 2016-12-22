@@ -58,11 +58,15 @@
                         </select>
                     </div>
                     <div class="col-sm-3 down">
-                        <select class="selectpicker" id="car-piece" name='car-piece' title="Pret de la ..."
-                                data-live-search="true">
-                            {% for product in announcement %}
-                                <option>{{ product.productName }}</option>
+                        <select class="selectpicker" id="car-price-from" name='car-price-from' title="Pret de la ...(lei)" data-live-search="true">
+                            {% set minPrice = 100 %}
+                            {% set maxPrice = 1000 %}
+                            <option>{{ 'sub 50 lei'}}</option>
+                            <option>{{ '50 lei'}}</option>
+                            {% for price in range(minPrice, maxPrice, 100) %}
+                                <option>{{ price }} {{'lei'}}</option>
                             {% endfor %}
+                            <option>{{ 'peste 1000 lei'}}</option>
                         </select>
                     </div>
                     <div class="col-sm-3">
@@ -86,9 +90,7 @@
                         </select>
                     </div>
                     <div class="col-sm-3 up">
-                        <select class="selectpicker" id="car-year-end" name='car-year-end'
-                                title="An fabricatie pana la ..."
-                                data-live-search="true">
+                        <select class="selectpicker" id="car-year-end" name='car-year-end' title="An fabricatie pana la ..." data-live-search="true">
                             {% set minYear = "now - 36 years"|date("Y") %}
                             {% set maxYear = "now"|date("Y") %}
                             {% for year in minYear..maxYear %}
@@ -97,11 +99,16 @@
                         </select>
                     </div>
                     <div class="col-sm-3 up">
-                        <select class="selectpicker" id="car-piece" name='car-piece' title="Pret pana la ..."
+                        <select class="selectpicker" id="car-price-to" name='car-price-to' title="Pret pana la ...(lei)"
                                 data-live-search="true">
-                            {% for product in announcement %}
-                                <option>{{ product.productName }}</option>
+                            {% set minPrice = 100 %}
+                            {% set maxPrice = 1000 %}
+                            <option>{{ 'sub 50 lei'}}</option>
+                            <option>{{ '50 lei'}}</option>
+                            {% for price in range(minPrice, maxPrice, 100) %}
+                                <option>{{ price }} {{'lei'}}</option>
                             {% endfor %}
+                            <option>{{ 'peste 1000 lei'}}</option>
                         </select>
                     </div>
                     <div class='col-sm-1 checkbox'>
@@ -127,116 +134,86 @@
             <div class="btn-group" style="float:right;">
                 <a href="#" id="list" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th-list"></span>List</a>
                 <a href="#" id="grid" class="btn btn-default btn-sm"><span
-                            class="glyphicon glyphicon-th"></span>Grid</a>
+                        class="glyphicon glyphicon-th"></span>Grid</a>
             </div>
         </div>
         <h1></h1>
 
         {% block content %}
             <div class="container">
-                {# Iterate over items for the current page, rendering each one #}
-
-                {#<div class="events box">#}
-                {#{% if entity.stock > 0 %}#}
-                {#<div class="ribbon ribbon-new"><span>NEW</span></div>#}
-                {#{% else %}#}
-                {#<div class="ribbon ribbon-sold-out"><span>SOLD OUT</span></div>#}
-                {#{% endif %}#}
-
-                {#<article>#}
-                {#<header class="map-container">#}
-                {#{% if entity.imageName is empty %}#}
-                {#<img src="{{ asset('bundles/admin/images/automobil.png') }}"/>#}
-                {#{% else %}#}
-                {#<img src="{{ asset('uploads/products/' ~entity.imageName) }}"/>#}
-                {#{% endif %}#}
-                {#</header>#}
-
-                {#<section>#}
-                {#<h3>#}
-                {#<a href="{{ path('event_show', {'id': entity.id}) }}">{{ entity.productName }}</a>#}
-                {#</h3>#}
-
-                {#<div class="col-sm-4">#}
-                {#<dt>Model:</dt>#}
-                {#<dd>{{ entity.carMaker }}</dd>#}
-                {#<dt>Model:</dt>#}
-                {#<dd>{{ entity.carModel }}</dd>#}
-                {#</div>#}
-
-                {#<div class="col-sm-4">#}
-                {#<dd>{{ entity.description }}</dd>#}
-                {#<dd>{{ entity.created.format('Y-m-d') }}</dd>#}
-                {#<dd>{{ entity.stock }}</dd>#}
-                {#</div>#}
-                {#</section>#}
-                {#</article>#}
-                {#</div>#}
-
-
-                <div id="products" class="row list-group">
-                {% for entity in pagination.items %}
-                    <div id="test" class="item col-xs-4 col-lg-4">
-                        {% if entity.stock > 0 %}
-                            <div class="ribbon ribbon-new"><span>NEW</span></div>
-                        {% else %}
-                            <div class="ribbon ribbon-sold-out"><span>SOLD OUT</span></div>
-                        {% endif %}
-                        <div class="thumbnail">
-                            {% if entity.imageName is empty %}
-                                <img src="{{ asset('bundles/admin/images/automobil.png') }}"/>
-                            {% else %}
-                                <img src="{{ asset('uploads/products/' ~entity.imageName) }}"/>
-                            {% endif %}
-                            <div class="caption">
-                                <h4 class="group inner list-group-item-heading">{{ entity.carMaker }}</h4>
-                                <p class="group inner list-group-item-text">{{ entity.description }}</p>
-                                <div class="row">
-                                    <div class="col-xs-12 col-md-6">
-                                        <p class="lead">$21.000</p>
-                                    </div>
-                                    <div class="col-xs-12 col-md-6">
-                                        <a class="btn btn-success" href="http://www.jquery2dotnet.com">Add to
-                                            cart</a>
+                {% if pagination.items is empty %}
+                    <div id="no-result">
+                        <h2>You have no entries</h2>
+                    </div>
+                {% else %}
+                    <div id="products" class="row list-group">
+                        {% for entity in pagination.items %}
+                            <div id="test" class="item col-xs-4 col-lg-4">
+                                {% if entity.stock > 0 %}
+                                    <div class="ribbon ribbon-new"><span>NEW</span></div>
+                                {% else %}
+                                    <div class="ribbon ribbon-sold-out"><span>SOLD OUT</span></div>
+                                {% endif %}
+                                <div class="thumbnail">
+                                    {% if entity.imageName is empty %}
+                                        <img src="{{ asset('bundles/admin/images/automobil.png') }}"/>
+                                    {% else %}
+                                        <img src="{{ asset('uploads/products/' ~entity.imageName) }}"/>
+                                    {% endif %}
+                                    <div class="caption">
+                                        <div class="row">
+                                            <div class="col-sm-5">
+                                                <h4 class="group inner list-group-item-heading">{{ entity.carMaker }}</h4>
+                                                <p class="group inner list-group-item-text">{{ entity.description }}</p>
+                                                <h4 class="group inner list-group-item-heading">{{entity.carYear}}</h4>
+                                            </div>
+                                            <div class="col-sm-4" style="margin-left: 40px;">
+                                                {% if entity.price > 0 %}
+                                                    <p class="price">{{entity.price}}&nbsp;<span style="margin-right: -20px;">lei</span></p>
+                                                {% else %}
+                                                    <p class="price-undefined">cere oferta</p>
+                                                {%endif %}
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                        {% endfor %}
+                    </div>
+
+                    <div id="pagination">
+                        <div class="navigation text-right">
+                            {{ knp_pagination_render(pagination) }}
                         </div>
                     </div>
-                {% endfor %}
-            </div>
-
-            <div id="pagination">
-                <div class="navigation text-right">
-                    {{ knp_pagination_render(pagination) }}
-                </div>
-            </div>
-        {% endblock %}
-    </div>
-{% endblock %}
+                {% endif %}
+            {% endblock %}
+        </div>
+    {% endblock %}
 
 
 
-{% block javascripts %}
-    <!-- jQuery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"
-            integrity="sha384-THPy051/pYDQGanwU6poAc/hOdQxjnOEXzbT+OuUAFqNqFjL+4IGLBgCJC3ZOShY"
-            crossorigin="anonymous"></script>
-    <!-- Bootstrap 4 Alpha JS -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/js/bootstrap.min.js"
-            integrity="sha384-VjEeINv9OSwtWFLAtmc4JCtEJXXBub00gtSnszmspDLCtC0I4z4nqz7rEFbIZLLU"
-            crossorigin="anonymous"></script>
+    {% block javascripts %}
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"
+                integrity="sha384-THPy051/pYDQGanwU6poAc/hOdQxjnOEXzbT+OuUAFqNqFjL+4IGLBgCJC3ZOShY"
+        crossorigin="anonymous"></script>
+        <!-- Bootstrap 4 Alpha JS -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/js/bootstrap.min.js"
+                integrity="sha384-VjEeINv9OSwtWFLAtmc4JCtEJXXBub00gtSnszmspDLCtC0I4z4nqz7rEFbIZLLU"
+        crossorigin="anonymous"></script>
 
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/js/bootstrap-select.min.js"></script>
-    <script type="text/javascript" src="{{ asset('bundles/admin/js/select2.js') }}"></script>
-    <script>
-        $('.selectpicker').selectpicker({
-            size: 10
-        });
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/js/bootstrap-select.min.js"></script>
+        <script type="text/javascript" src="{{ asset('bundles/admin/js/select2.js') }}"></script>
+        <script>
+            $('.selectpicker').selectpicker({
+                size: 10
+            });
 
-    </script>
-    <script type="text/javascript" src="{{ asset('bundles/admin/js/grid-list.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('bundles/admin/js/filter.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('bundles/admin/js/jquery.LoadingBox.js') }}"></script>
-{% endblock %}
+        </script>
+        <script type="text/javascript" src="{{ asset('bundles/admin/js/grid-list.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/admin/js/filter.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/admin/js/jquery.cookie.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/admin/js/jquery.LoadingBox.js') }}"></script>
+    {% endblock %}
