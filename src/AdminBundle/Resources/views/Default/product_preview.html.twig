@@ -142,60 +142,14 @@
         <h1></h1>
 
         {% block content %}
-        <div class="container">
-            {% if pagination.items is empty %}
-                <div id="no-result">
-                    <h2>You have no entries</h2>
-                </div>
-            {% else %}
+            <div class="container">
                 <div id="products" class="row list-group">
-                    {% for entity in pagination.items %}
-                        <div id="test" class="item col-xs-4 col-lg-4">
-                            {% if entity.stock > 0 %}
-                                {% if date(entity.created) > date('-24 hours') %}
-                                    <div class="ribbon ribbon-new"><span>NEW</span></div>
-                                {% endif %}
-                            {% else %}
-                                <div class="ribbon ribbon-sold-out"><span>SOLD OUT</span></div>
-                            {% endif %}
-                            <div class="thumbnail">
-                                {% if entity.imageName is empty %}
-                                    <img src="{{ asset('bundles/admin/images/automobil.png') }}"/>
-                                {% else %}
-                                    <img src="{{ asset('uploads/products/' ~entity.imageName) }}"/>
-                                {% endif %}
-                                <div class="caption">
-                                    <div class="row">
-                                        <div class="col-sm-5">
-                                            <a href="{{ path('product_preview') }}" class="group inner list-group-item-heading">{{ entity.productName }}</a>
-                                            <h2 class="group inner list-group-item-heading">{{ entity.carMaker }}</h2>
-                                            <p class="group inner list-group-item-text">{{ entity.description }}</p>
-                                            <h4 class="group inner list-group-item-heading">{{ entity.carYear }}</h4>
-                                            <h4 class="group inner list-group-item-heading">{{ entity.created | date('Y-m-d') }}</h4>
-                                        </div>
-                                        <div class="col-sm-4" style="margin-left: 40px;">
-                                            {% if entity.price > 0 %}
-                                                <p class="price">{{ entity.price }}&nbsp;<span
-                                                            style="margin-right: -20px;">lei</span></p>
-                                            {% else %}
-                                                <p class="price-undefined">cere oferta</p>
-                                            {% endif %}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
-
-                <div id="pagination">
-                    <div class="navigation text-right">
-                        {{ knp_pagination_render(pagination) }}
+                    <div id="test" class="item col-xs-4 col-lg-4">
+                        {{ announcement[0].productName }}
                     </div>
                 </div>
-            {% endif %}
-            {% endblock %}
-        </div>
+            </div>
+        {% endblock %}
     </div>
 {% endblock %}
 

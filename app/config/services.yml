@@ -3,18 +3,21 @@
 parameters:
 #    parameter_name: value
 
-services:
-#    service_name:
-#        class: AppBundle\Directory\ClassName
-#        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
 
 services:
     sonata.user.admin.group:
-      abstract: true
-      public: false
+        abstract: true
+        public: false
+
+    twig.extension.sortbyfield:
+        class: Snilius\Twig\SortByFieldExtension
+        tags:
+          - { name: twig.extension }
 
 #my_paginator:
 #    class: AshleyDawson\SimplePagination\Paginator
 #    calls:
 #      - [ setItemsPerPage, [ 10 ] ]
 #      - [ setPagesInRange, [ 5 ] ]
+
+

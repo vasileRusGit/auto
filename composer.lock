@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "50adf158f78a8aaac33ccef1d43698b4",
-    "content-hash": "fc08f48f0d4f13fc2d72b1dc2c4371e6",
+    "hash": "953a1a28b42fceda2dc1354ea0b3decd",
+    "content-hash": "b621fc82b38de1b73e90e7ab07bab53f",
     "packages": [
         {
             "name": "ashleydawson/simple-pagination",
@@ -217,6 +217,51 @@
                 "slugify"
             ],
             "time": "2016-08-09 20:10:17"
+        },
+        {
+            "name": "cviebrock/twig-group",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cviebrock/twig-group.git",
+                "reference": "c09191638584eec3734efe749bcf7103057a8115"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cviebrock/twig-group/zipball/c09191638584eec3734efe749bcf7103057a8115",
+                "reference": "c09191638584eec3734efe749bcf7103057a8115",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0",
+                "twig/twig": "1.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Cviebrock\\Twig\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Colin Viebrock",
+                    "email": "colin@viebrock.ca"
+                }
+            ],
+            "description": "Twig filter that splits an array into a given number of groups (unlike batch, which splits the array based on items per group)",
+            "homepage": "http://github.com/cviebrock/twig-group",
+            "keywords": [
+                "batch",
+                "filter",
+                "group",
+                "templating",
+                "twig"
+            ],
+            "time": "2015-03-17 19:32:05"
         },
         {
             "name": "doctrine/annotations",
@@ -2098,6 +2143,45 @@
             ],
             "description": "A security checker for your composer.lock",
             "time": "2016-09-23 18:09:57"
+        },
+        {
+            "name": "snilius/twig-sort-by-field",
+            "version": "v0.1.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/victorhaggqvist/Twig-sort-by-field.git",
+                "reference": "6d02c6d49f93d78526e24ecf8999d322f291aa44"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/victorhaggqvist/Twig-sort-by-field/zipball/6d02c6d49f93d78526e24ecf8999d322f291aa44",
+                "reference": "6d02c6d49f93d78526e24ecf8999d322f291aa44",
+                "shasum": ""
+            },
+            "require-dev": {
+                "doctrine/collections": "^1.3",
+                "php": ">=5.5.9",
+                "phpunit/phpunit": "~4.5",
+                "twig/extensions": "~1.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Snilius\\Twig\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Victor Häggqvist",
+                    "email": "victor@snilius.com"
+                }
+            ],
+            "description": "A Twig Extension filter to sort an array of entries (objects or arrays) by the specified field",
+            "time": "2016-01-27 00:29:51"
         },
         {
             "name": "sonata-project/admin-bundle",

@@ -6,9 +6,9 @@ ajax:
     path:     /ajax_call
     defaults: { _controller: AdminBundle:Announcement:callAjax }
     
-#form_submit:
-#    path:     /form_submit
-#    defaults: { _controller: AdminBundle:Announcement:formSubmit }
+product_preview:
+    path:     /product_preview
+    defaults: { _controller: AdminBundle:Announcement:productPreview }
     
 search_engine:
     path:     /search_engine

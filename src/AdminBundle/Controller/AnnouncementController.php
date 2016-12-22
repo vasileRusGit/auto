@@ -11,7 +11,14 @@ class AnnouncementController extends Controller {
     public function carMakerAction() {
         $em = $this->getDoctrine()->getManager();
         $carMakers = $em->getRepository('AdminBundle:CarMakers')->findAll();
-        $announcement = $em->getRepository('AdminBundle:Announcement')->findAll();
+        $announcement2 = $em->getRepository('AdminBundle:Announcement');
+
+        $query = $announcement2->createQueryBuilder('p');
+        $query->select('p');
+        $announcement = $query->addOrderBy('p.created', 'DESC')
+            ->andWhere('p.created < :now')
+            ->setParameter('now', new \DateTime())
+            ->getQuery()->getResult();
 
         $pagination = $this->paginationFunction($announcement);
 
@@ -115,7 +122,10 @@ class AnnouncementController extends Controller {
             $query->select('p');
         }
 
-        $filter = $query->getQuery()->getResult();
+        $filter = $query->addOrderBy('p.created', 'DESC')
+            ->andWhere('p.created < :now')
+            ->setParameter('now', new \DateTime())
+            ->getQuery()->getResult();
         $pagination = $this->paginationFunction($filter);
 
         return $this->render('AdminBundle:Default:index.html.twig', array(
@@ -124,6 +134,22 @@ class AnnouncementController extends Controller {
                     'announcement' => $announcement,
                     'filter' => $filter,
                     'pagination' => $pagination
+        ));
+    }
+
+    public function productPreviewAction() {
+        $em = $this->getDoctrine()->getManager();
+        $carMakers = $em->getRepository('AdminBundle:CarMakers')->findAll();
+        $announcement2 = $em->getRepository('AdminBundle:Announcement');
+
+        $query = $announcement2->createQueryBuilder('p');
+        $query->select('p');
+        $announcement = $query->getQuery()->getResult();
+
+        return $this->render('@Admin/Default/product_preview.html.twig', array(
+            'carMakers' => $carMakers,
+            'carModels' => '',
+            'announcement' => $announcement
         ));
     }
 

@@ -28,7 +28,9 @@
         "nelmio/api-doc-bundle": "^2.13",
         "gedmo/doctrine-extensions": "dev-master",
         "knplabs/knp-paginator-bundle": "^2.5",
-        "ashleydawson/simple-pagination-bundle": "^1.0"
+        "ashleydawson/simple-pagination-bundle": "^1.0",
+        "snilius/twig-sort-by-field": "^0.1.5",
+        "cviebrock/twig-group": "^1.0"
     },
     "require-dev": {
         "sensio/generator-bundle": "~3.0",

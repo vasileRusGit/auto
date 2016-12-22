@@ -51,6 +51,7 @@ $(document).ready(function () {
             method: 'GET',
             url: 'http://localhost:8000/search_engine',
 
+
             data: {
                 carMakerDropdown: carMakerDropdown,
                 carModelDropdown: carModelDropdown,
