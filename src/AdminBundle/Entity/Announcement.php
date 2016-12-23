@@ -11,8 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="announcement")
  * @ORM\Entity(repositoryClass="AdminBundle\Repository\AnnouncementRepository")
  */
-class Announcement
-{
+class Announcement {
 
     /**
      * @var int
@@ -66,6 +65,12 @@ class Announcement
     private $description;
 
     /**
+     *
+     * @ORM\Column(name="visitors", type="integer", nullable=true)
+     */
+    private $visitors;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="imageName", type="string", length=255, nullable=true)
@@ -78,157 +83,158 @@ class Announcement
     protected $created;
 
     /**
+     * @var \DateTime $updated
+     * 
+     * @ORM\Column(type="datetime", name="updated", nullable=true)
+     * @Gedmo\Timestampable(on="update")
+     */
+    public $updated;
+
+    /**
      * User class constructor
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->created = new \DateTime();
+        if ($this->getUpdated() == null) {
+            $this->setUpdated(new \DateTime());
+        }
     }
 
-    function getCreated()
-    {
+    function getCreated() {
         return $this->created;
     }
 
-    function setCreated($created)
-    {
+    function setCreated($created) {
         $this->created = $created;
     }
 
+    function getUpdated() {
+        return $this->updated;
+    }
+
+    function setUpdated($updated) {
+        $this->updated = $updated;
+        
+        return $this;
+    }
 
     /**
      * Get id
      *
      * @return integer
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
-    function getProductName()
-    {
+    function getProductName() {
         return $this->product_name;
     }
 
-    function setProductName($product_name)
-    {
+    function setProductName($product_name) {
         $this->product_name = $product_name;
     }
 
-    function getCarMaker()
-    {
+    function getCarMaker() {
         return $this->car_maker;
     }
 
-    function setCarMaker($car_maker)
-    {
+    function setCarMaker($car_maker) {
         $this->car_maker = $car_maker;
     }
 
-    function getCarModel()
-    {
+    function getCarModel() {
         return $this->car_model;
     }
 
-    function setCarModel($car_model)
-    {
+    function setCarModel($car_model) {
         $this->car_model = $car_model;
     }
 
     /**
      * @return mixed
      */
-    public function getPrice()
-    {
+    public function getPrice() {
         return $this->price;
     }
 
     /**
      * @param mixed $price
      */
-    public function setPrice($price)
-    {
+    public function setPrice($price) {
         $this->price = $price;
     }
 
-    function getCarYear()
-    {
+    function getCarYear() {
         return $this->car_year;
     }
 
-    function setCarYear($car_year)
-    {
+    function setCarYear($car_year) {
         $this->car_year = $car_year;
     }
 
-    function getDescription()
-    {
+    function getDescription() {
         return $this->description;
     }
 
-    function setDescription($description)
-    {
+    function setDescription($description) {
         $this->description = $description;
     }
 
-    function getStock()
-    {
+    function getStock() {
         return $this->stock;
     }
 
-    function setStock($stock)
-    {
+    function setStock($stock) {
         $this->stock = $stock;
+    }
+
+    function getVisitors() {
+        return $this->visitors;
+    }
+
+    function setVisitors($visitors) {
+        $this->visitors = $visitors;
     }
 
 // IMAGE UPLOAD
     protected $file;
 
-    function getImageName()
-    {
+    function getImageName() {
         return $this->imageName;
     }
 
-    function getFile()
-    {
+    function getFile() {
         return $this->file;
     }
 
-    function setImageName($imageName)
-    {
+    function setImageName($imageName) {
         $this->imageName = $imageName;
     }
 
-    function setFile($file)
-    {
+    function setFile($file) {
         $this->file = $file;
     }
 
-    public function getAbsolutePath()
-    {
+    public function getAbsolutePath() {
         return null === $this->imageName ? null : $this->getUploadRootDir() . '/' . $this->imageName;
     }
 
-    public function getWebPath()
-    {
+    public function getWebPath() {
         return null === $this->imageName ? null : $this->getUploadDir() . '/' . $this->imageName;
     }
 
-    protected function getUploadRootDir($basepath)
-    {
+    protected function getUploadRootDir($basepath) {
         // the absolute directory path where uploaded documents should be saved
         return $basepath . $this->getUploadDir();
     }
 
-    protected function getUploadDir()
-    {
+    protected function getUploadDir() {
         // get rid of the __DIR__ so it doesn't screw when displaying uploaded doc/image in the view.
         return 'uploads/products';
     }
 
-    public function upload($basepath)
-    {
+    public function upload($basepath) {
         // the file property can be empty if the field is not required
         if (null === $this->file) {
             return;

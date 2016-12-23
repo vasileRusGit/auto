@@ -16,9 +16,9 @@ class AnnouncementController extends Controller {
         $query = $announcement2->createQueryBuilder('p');
         $query->select('p');
         $announcement = $query->addOrderBy('p.created', 'DESC')
-            ->andWhere('p.created < :now')
-            ->setParameter('now', new \DateTime())
-            ->getQuery()->getResult();
+                        ->andWhere('p.created < :now')
+                        ->setParameter('now', new \DateTime())
+                        ->getQuery()->getResult();
 
         $pagination = $this->paginationFunction($announcement);
 
@@ -123,9 +123,9 @@ class AnnouncementController extends Controller {
         }
 
         $filter = $query->addOrderBy('p.created', 'DESC')
-            ->andWhere('p.created < :now')
-            ->setParameter('now', new \DateTime())
-            ->getQuery()->getResult();
+                        ->andWhere('p.created < :now')
+                        ->setParameter('now', new \DateTime())
+                        ->getQuery()->getResult();
         $pagination = $this->paginationFunction($filter);
 
         return $this->render('AdminBundle:Default:index.html.twig', array(
@@ -137,19 +137,37 @@ class AnnouncementController extends Controller {
         ));
     }
 
-    public function productPreviewAction() {
+    public function productPreviewAction($id) {
         $em = $this->getDoctrine()->getManager();
         $carMakers = $em->getRepository('AdminBundle:CarMakers')->findAll();
-        $announcement2 = $em->getRepository('AdminBundle:Announcement');
+        $announcement = $em->getRepository('AdminBundle:Announcement')->find($id);
 
-        $query = $announcement2->createQueryBuilder('p');
-        $query->select('p');
-        $announcement = $query->getQuery()->getResult();
+        $visitors = $announcement->getVisitors();
+        $announcement->setVisitors($visitors + 1);
+        $em->persist($announcement);
+        $em->flush();
 
         return $this->render('@Admin/Default/product_preview.html.twig', array(
-            'carMakers' => $carMakers,
-            'carModels' => '',
-            'announcement' => $announcement
+                    'carMakers' => $carMakers,
+                    'carModels' => '',
+                    'announcement' => $announcement
+        ));
+    }
+    
+    public function requireOfferAction($id) {
+        $em = $this->getDoctrine()->getManager();
+        $carMakers = $em->getRepository('AdminBundle:CarMakers')->findAll();
+        $announcement = $em->getRepository('AdminBundle:Announcement')->find($id);
+
+        $visitors = $announcement->getVisitors();
+        $announcement->setVisitors($visitors + 1);
+        $em->persist($announcement);
+        $em->flush();
+
+        return $this->render('@Admin/Default/require_offer.html.twig', array(
+                    'carMakers' => $carMakers,
+                    'carModels' => '',
+                    'announcement' => $announcement
         ));
     }
 

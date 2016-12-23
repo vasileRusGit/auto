@@ -22,6 +22,11 @@ class AnnouncementAdmin extends AbstractAdmin {
         $qbMakers = $qbMakers->add('select', 'c')
                 ->add('from', 'AdminBundle\Entity\CarMakers c');
 
+        $date = new \DateTime('now');
+        $updated = $date->format('Y-m-d H:m:s');
+//        $updated = $this->updated = new \DateTime('now');
+//        var_dump($updated);die;
+        
         $queryMakers = $qbMakers->getQuery();
         $arrayTypeMakers = $queryMakers->getArrayResult();
         $arrayMakers = array_column($arrayTypeMakers, 'title');
@@ -43,6 +48,7 @@ class AnnouncementAdmin extends AbstractAdmin {
                 ->add('stock', 'integer', array('required' => true))
                 ->add('file', 'file', array('required' => false))
                 ->add('description', 'textarea')
+                ->add('updated', null, array('data' => new \DateTime('now'), 'attr'=>array('style'=>'display:none;')) )
         ;
     }
 
@@ -59,6 +65,7 @@ class AnnouncementAdmin extends AbstractAdmin {
                 ->add('imageName')
                 ->add('description')
                 ->add('created')
+//                ->add('updated')
         ;
     }
 

@@ -7,8 +7,12 @@ ajax:
     defaults: { _controller: AdminBundle:Announcement:callAjax }
     
 product_preview:
-    path:     /product_preview
+    path:     /product_preview/{id}
     defaults: { _controller: AdminBundle:Announcement:productPreview }
+    
+require_offer:
+    path:     /require_offer/{id}
+    defaults: { _controller: AdminBundle:Announcement:requireOffer }
     
 search_engine:
     path:     /search_engine
